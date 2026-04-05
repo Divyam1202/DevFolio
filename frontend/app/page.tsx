@@ -1,89 +1,125 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, GraduationCap, Users, Award, Moon, Sun } from "lucide-react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
+import { ArrowRight, Award, GraduationCap, Moon, Sun, Users } from "lucide-react";
+
+import { useTheme } from "@/app/providers/theme-providers";
+import { Button } from "@/components/ui/button";
+
+const features = [
+  {
+    title: "Expert Learning",
+    description: "Join guided courses built to help students, instructors, and creators keep growing.",
+    icon: GraduationCap,
+  },
+  {
+    title: "Portfolio Publishing",
+    description: "Turn projects, skills, and achievements into a clean public portfolio you can share anywhere.",
+    icon: Users,
+  },
+  {
+    title: "Career Proof",
+    description: "Show certificates, completed work, and practical outcomes in one place recruiters can review fast.",
+    icon: Award,
+  },
+];
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary/10 via-primary/5 to-background px-4 py-20 md:px-6 md:py-32">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col items-center text-center">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-              Learn Without Limits
-            </h1>
-            <p className="mt-4 max-w-[700px] text-lg text-muted-foreground md:text-xl">
-              Start, switch, or advance your career with thousands of courses or showcase your work with a portfolio.
+    <main className="relative overflow-hidden bg-background text-foreground">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_40%),linear-gradient(180deg,_rgba(14,165,233,0.08),_transparent_35%)]" />
+
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-6 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.25em] text-blue-600 dark:text-blue-300">
+              DevFolio
             </p>
-            <div className="mt-8 flex gap-4">
-              {/* Portfolio Button (Blue) */}
-              <Link href="/portfolio">
-                <Button size="lg" className="bg-blue-500 hover:bg-purple-500 text-white">
-                  Portfolio
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              {/* Courses Button (Blue) */}
-              <Link href="/login"> {/* Redirecting to login/register */}
-                <Button size="lg" className="bg-blue-500 hover:bg-orange-500 text-white">
-                  Courses
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+            <h1 className="mt-2 text-lg font-semibold sm:text-xl">
+              Learn, build, and publish from one workspace.
+            </h1>
+          </div>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="rounded-full border border-border bg-background/80 p-3 transition hover:bg-muted"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+        </div>
+
+        <section className="flex flex-1 items-center py-16 sm:py-20">
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div>
+              <div className="inline-flex rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-sm font-medium text-blue-700 dark:text-blue-200">
+                Course platform plus portfolio builder
+              </div>
+
+              <h2 className="mt-6 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                Build skills in public and give your work a homepage that feels finished.
+              </h2>
+
+              <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+                DevFolio brings together learning paths, creator portfolios, and role-based dashboards so students and
+                instructors can move from coursework to visible outcomes without switching platforms.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Link href="/portfolio">
+                  <Button size="lg" className="w-full bg-blue-600 text-white hover:bg-blue-700 sm:w-auto">
+                    Explore Portfolios
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+
+                <Link href="/login">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                    Start Learning
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="rounded-3xl border border-border bg-card/80 p-6 shadow-sm backdrop-blur">
+                <p className="text-sm font-medium text-muted-foreground">Why teams use it</p>
+                <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+                  <div>
+                    <p className="text-3xl font-bold text-blue-600 dark:text-blue-300">1</p>
+                    <p className="mt-2 text-sm text-muted-foreground">One place for courses, portfolios, and creator identity.</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-blue-600 dark:text-blue-300">3</p>
+                    <p className="mt-2 text-sm text-muted-foreground">Role-based experiences for students, instructors, and admins.</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-blue-600 dark:text-blue-300">24/7</p>
+                    <p className="mt-2 text-sm text-muted-foreground">Access to published work and learning progress from anywhere.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Dark/Light Mode Toggle */}
-      <div className="absolute top-4 right-4">
-        <button
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-        >
-          {theme === "light" ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
-        </button>
+        <section className="pb-10 sm:pb-16">
+          <div className="grid gap-6 md:grid-cols-3">
+            {features.map(({ title, description, icon: Icon }) => (
+              <div key={title} className="rounded-3xl border border-border bg-card/80 p-6 shadow-sm backdrop-blur">
+                <div className="inline-flex rounded-2xl bg-blue-500/10 p-3 text-blue-600 dark:text-blue-300">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
-
-      {/* Features Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-4 rounded-full bg-primary/10 p-4">
-                <GraduationCap className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="mb-2 text-xl font-semibold">Expert Learning</h3>
-              <p className="text-muted-foreground">
-                Learn from industry experts and top universities worldwide.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-4 rounded-full bg-primary/10 p-4">
-                <Users className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="mb-2 text-xl font-semibold">Collaborative Learning</h3>
-              <p className="text-muted-foreground">
-                Join a global community of learners and share knowledge.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-4 rounded-full bg-primary/10 p-4">
-                <Award className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="mb-2 text-xl font-semibold">Verified Certificates</h3>
-              <p className="text-muted-foreground">
-                Earn recognized certificates to showcase your achievements.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }
